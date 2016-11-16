@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "bitree.h"
 #include "bitnode_stack.c"
+#include "bitnode_queue.h"
 
 void visit(BiTree T){
     printf("%c",T->data);
@@ -70,3 +71,17 @@ void InOrderByStack(BiTree T){
     }
 }
 
+void LevelOrder(BiTree T){
+    SqBiTNodeQueue sq;
+    InitBiTNodeQueue(&sq);
+    BiTNode *p=T;
+    EnBiTNodeQueue(&sq,*p);
+    while(!BiTNodeQueueEmpty(sq)){
+        DeBiTNodeQueue(&sq,p);
+        visit(p);
+        if(p->lchild!=NULL)
+            EnBiTNodeQueue(&sq,*(p->lchild));
+        if(p->rchild!=NULL)
+            EnBiTNodeQueue(&sq,*(p->rchild));
+    }
+}

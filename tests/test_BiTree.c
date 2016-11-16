@@ -10,4 +10,5 @@ void testBiTree(){
     printf("\n");
     InOrderByStack(T);
     printf("\n");
+    LevelOrder(T);
 }

@@ -14,5 +14,6 @@ void PreOrder(BiTree T);
 void InOrder(BiTree T);
 void PostOrder(BiTree T);
 void InOrderByStack(BiTree T);
+void LevelOrder(BiTree T);
 
 #endif
