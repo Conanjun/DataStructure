@@ -5,13 +5,15 @@
 #include "tests/test_BiTNodeQueue.c"
 #include "tests/test_BiTree.c"
 #include "tests/test_Queue.c"
+#include "tests/test_Sort.c"
 
 int main(){
     //testSqList();
     //testStack();
     //testBiTNodeStack();
-    testBiTree();
+    //testBiTree();
     //testQueue();
     //testBiTNodeQueue();
+    testSort();
     return 0;
 }
