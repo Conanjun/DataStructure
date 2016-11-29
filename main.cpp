@@ -6,7 +6,8 @@
 #include "tests/test_BiTree.c"
 #include "tests/test_Queue.c"
 #include "tests/test_Sort.c"
-
+#include "tests/test_AVLTree.c"
+#include "tests/test_BSTree.c"
 int main(){
     //testSqList();
     //testStack();
@@ -14,6 +15,8 @@ int main(){
     //testBiTree();
     //testQueue();
     //testBiTNodeQueue();
-    testSort();
+    //testSort();
+    //testAVLTree();
+    testBSTree();
     return 0;
 }
