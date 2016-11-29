@@ -74,14 +74,25 @@ void InOrderByStack(BiTree T){
 void LevelOrder(BiTree T){
     SqBiTNodeQueue sq;
     InitBiTNodeQueue(&sq);
-    BiTNode *p=T;
-    EnBiTNodeQueue(&sq,*p);
+    //BiTNode *p=T;//这里写法错误，这样后面的出队列会直接修改树
+    BiTNode p;
+    EnBiTNodeQueue(&sq,*T);
     while(!BiTNodeQueueEmpty(sq)){
-        DeBiTNodeQueue(&sq,p);
-        visit(p);
-        if(p->lchild!=NULL)
-            EnBiTNodeQueue(&sq,*(p->lchild));
-        if(p->rchild!=NULL)
-            EnBiTNodeQueue(&sq,*(p->rchild));
+        DeBiTNodeQueue(&sq,&p);
+        visit(&p);
+        if(p.lchild!=NULL)
+            EnBiTNodeQueue(&sq,*(p.lchild));
+        if(p.rchild!=NULL)
+            EnBiTNodeQueue(&sq,*(p.rchild));
     }
+}
+
+//竖向打印树
+void PrintTree(BiTree T,int nlayer){
+    if(T == NULL) return;
+    PrintTree(T->rchild,nlayer+1);
+    for(int i=0;i<nlayer;i++)
+        printf("  ");
+    printf("%c\n",T->data);
+    PrintTree(T->lchild,nlayer+1);
 }
