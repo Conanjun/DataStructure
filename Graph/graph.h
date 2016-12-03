@@ -6,6 +6,7 @@
 //邻接矩阵结构体
 typedef struct ArcCell{
     int adj; //边的权重
+    //char* info;//边的信息
 }ArcCell,AdjMatrix[Maxsize][Maxsize];
 
 typedef struct{
@@ -16,6 +17,7 @@ typedef struct{
 
 //创建无向图
 void CreateUDG(MGraph *G);
+void CreateDG(MGraph *G);
 void PrintGraph(MGraph G);
 void DFS(MGraph G,int v);
 void DFSGraph(MGraph G);

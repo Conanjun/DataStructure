@@ -1,3 +1,6 @@
+#ifndef _STACK_C
+#define _STACK_C
+
 #include "stack.h"
 
 void InitStack(SqStack* s){
@@ -37,3 +40,5 @@ void PrintStack(SqStack s){
         printf(i?"% d":"%d",s.data[i]);
     printf("\n");
 }
+
+#endif

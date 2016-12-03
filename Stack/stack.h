@@ -1,3 +1,6 @@
+#ifndef _STACK_H
+#define _STACK_H
+
 #include "../custom_define.h"
 
 typedef struct {
@@ -17,3 +20,4 @@ bool GetTop(SqStack s,ElemType *x);
 
 void PrintStack(SqStack s);
 
+#endif

@@ -3,7 +3,7 @@
 
 #include "graph.h"
 #include "../Queue/queue.c"
-#define INT_MAX 1000
+#define INT_MAX 32767
 
 int visited[Maxsize];
 //返回结点字符的下标
@@ -42,6 +42,34 @@ void CreateUDG(MGraph *G){
         scanf("%c %c %d",&v1,&v2,&value);
         getchar();
         G->arcs[LocateVex(*G,v1)][LocateVex(*G,v2)].adj= G->arcs[LocateVex(*G,v2)][LocateVex(*G,v1)].adj=value;
+    }
+}
+void CreateDG(MGraph *G){
+    printf("输入顶点数和边数:\n");
+    scanf("%d%d",&(G->vexnum),&(G->arcnum));
+    for(int i=0;i<G->vexnum;i++) visited[i]=0;
+    printf("按次序输入%d个顶点的字母标号\n",G->vexnum);
+    getchar();//吸收回车
+    for(int i=0;i<G->vexnum;i++){
+        scanf("%c",&(G->vexs[i]));
+    }
+    getchar();//吸收回车
+    //初始化邻接矩阵
+    for(int i=0;i<G->vexnum;i++){
+        for(int j=0;j<G->vexnum;j++){
+            if(i==j)
+                G->arcs[i][j].adj=0;
+            else
+                G->arcs[i][j].adj=INT_MAX;
+        }
+    }
+    for(int i=0;i<G->arcnum;i++){
+        printf("输入边的顶点和权值(A B 10)\n");
+        char v1,v2;
+        int value;
+        scanf("%c %c %d",&v1,&v2,&value);
+        getchar();
+        G->arcs[LocateVex(*G,v1)][LocateVex(*G,v2)].adj=value;
     }
 }
 void PrintGraph(MGraph G){

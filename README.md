@@ -11,4 +11,6 @@ main.cpp 为主启动文件
 test/* 为各个模块的测试文件
 各个模块文件夹
 
-
+编译:
+	cd DataStructure
+	make

@@ -9,6 +9,8 @@
 #include "tests/test_AVLTree.c"
 #include "tests/test_BSTree.c"
 #include "tests/test_Graph.c"
+
+//说明:要测试哪个模块则直接将该模块的注释取消
 int main(){
     //testSqList();
     //testStack();
