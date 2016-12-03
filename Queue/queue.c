@@ -1,3 +1,5 @@
+#ifndef _QUEUE_C
+#define _QUEUE_C
 #include "queue.h"
 
 void InitQueue(SqQueue *q){
@@ -52,3 +54,5 @@ void PrintQueue(SqQueue q){
         printf("\n");
     }
 }
+
+#endif
