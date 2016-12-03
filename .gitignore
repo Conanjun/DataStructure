@@ -1,2 +1,5 @@
 # ide ignore
-.idea
+idea
+# build ignore
+.cmake-build-debug
+
