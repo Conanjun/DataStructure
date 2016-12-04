@@ -13,7 +13,9 @@ test/* 为各个模块的测试文件
 
 编译:
 	cd DataStructure
+	
 	cmake .
+
 	make
 
 运行:
