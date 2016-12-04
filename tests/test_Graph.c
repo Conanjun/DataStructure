@@ -1,8 +1,11 @@
 #include "../Graph/graph.c"
 #include "../Graph/shortestpath.c"
 
+
+
+void testGraph(){
 /*
-测试数据:
+无向图测试数据:
 6 9
 ABCDEF
 A B 6
@@ -15,19 +18,18 @@ D E 2
 D F 3
 E F 5
 */
-
-
-void testGraph(){
-    MGraph G;
-    CreateUDG(&G);
+    MGraph UDG;
+    CreateUDG(&UDG);
     printf("图的邻接矩阵:\n");
-    PrintGraph(G);
+    PrintGraph(UDG);
     printf("图的深度优先遍历:\n");
-    DFSGraph(G);
+    DFSGraph(UDG);
     printf("\n");
     printf("图的广度优先遍历:\n");
-    BFSGraph(G);
+    BFSGraph(UDG);
     printf("\n");
     printf("图的单源最短路径:\n");
-    Dijkstra(G,0);
+    Dijkstra(UDG,0);
+    printf("图的所有顶点的最短路径:\n");
+    Floyd(UDG);
 }

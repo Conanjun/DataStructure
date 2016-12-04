@@ -1,7 +1,7 @@
 #include "graph.c"
 #include "../Stack/stack.c"
 
-void PrintPathAndDistance(MGraph G,int v0,int path[],int dist[]){
+void PrintPathAndDistanceDijkstra(MGraph G,int v0,int path[],int dist[]){
     SqStack sq;
     InitStack(&sq);
     for(int i=0;i<G.vexnum;i++){
@@ -69,6 +69,88 @@ void Dijkstra(MGraph G,int v0){
     }
     printf("\n");
     //打印最短路径和最短距离
-    PrintPathAndDistance(G,v0,path,dist);
+    PrintPathAndDistanceDijkstra(G,v0,path,dist);
+}
+
+
+void PrintPathAndDistanceFloyd(MGraph G,int** path,int** dist){
+    SqStack ss;
+    InitStack(&ss);
+    for(int i=0;i<G.vexnum;i++){
+        for(int j=0;j<G.vexnum;j++){
+            printf("%c 到 %c 的最短路径为: ",G.vexs[i],G.vexs[j]);
+            //路径回溯
+            int temp=j;
+            while(temp!=i){
+                Push(&ss,temp);
+                temp=path[i][temp];
+            }
+            printf("%c",G.vexs[i]);
+            while(!StackEmpty(ss)){
+                int temp;
+                Pop(&ss,&temp);
+                printf("->%c",G.vexs[temp]);
+            }
+            printf("    最短距离为%d\n",dist[i][j]);
+        }
+    }
+}
+
+void Floyd(MGraph G){
+    //注意，二维数组的指针的定义
+    int** path=(int**)malloc(sizeof(int*)*G.vexnum);
+    for(int i=0;i<G.vexnum;i++){
+        path[i]=(int*)malloc(sizeof(int)*G.vexnum);
+    }
+    int** dist=(int**)malloc(sizeof(int*)*G.vexnum);
+    for(int i=0;i<G.vexnum;i++){
+        dist[i]=(int*)malloc(sizeof(int)*G.vexnum);
+    }
+
+    //初始化path dist
+    for(int i=0;i<G.vexnum;i++){
+        for(int j=0;j<G.vexnum;j++){
+            dist[i][j]=G.arcs[i][j].adj;// vi 到 vj的距离为 dist[i][j]
+            if(i==j)
+                path[i][j]=-1;// 当前最短距离路径为 i 到 j,前缀为i
+            else
+                if(G.arcs[i][j].adj!=INT_MAX)
+                    path[i][j]=i;
+                else
+                    path[i][j]=-1;
+        }
+    }
+    //n次试探 修改
+    for(int k=0;k<G.vexnum;k++){
+        for(int i=0;i<G.vexnum;i++){
+            for(int j=0;j<G.vexnum;j++){
+                if(dist[i][j]>dist[i][k]+dist[k][j]){
+                    dist[i][j]=dist[i][k]+dist[k][j];
+                    path[i][j]=k;
+                }
+            }
+        }
+    }
+    //打印path dist
+    for(int i=0;i<G.vexnum;i++){
+        for(int j=0;j<G.vexnum;j++){
+            printf(j?" %d":"%d",path[i][j]);
+        }
+        printf("\n");
+    }
+    for(int i=0;i<G.vexnum;i++){
+        for(int j=0;j<G.vexnum;j++){
+            printf(j?" %d":"%d",dist[i][j]);
+        }
+        printf("\n");
+    }
+    PrintPathAndDistanceFloyd(G,path,dist);
+    //释放内存
+    for(int i=0;i<G.vexnum;i++){
+        free(path[i]);
+        free(dist[i]);
+    }
+    free(path);
+    free(dist);
 }
 
