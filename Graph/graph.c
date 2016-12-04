@@ -44,6 +44,8 @@ void CreateUDG(MGraph *G){
         G->arcs[LocateVex(*G,v1)][LocateVex(*G,v2)].adj= G->arcs[LocateVex(*G,v2)][LocateVex(*G,v1)].adj=value;
     }
 }
+
+//创建有向图
 void CreateDG(MGraph *G){
     printf("输入顶点数和边数:\n");
     scanf("%d%d",&(G->vexnum),&(G->arcnum));
@@ -72,6 +74,7 @@ void CreateDG(MGraph *G){
         G->arcs[LocateVex(*G,v1)][LocateVex(*G,v2)].adj=value;
     }
 }
+
 void PrintGraph(MGraph G){
     for(int i=0;i<G.vexnum;i++){
         for(int j=0;j<G.vexnum;j++){
@@ -83,6 +86,7 @@ void PrintGraph(MGraph G){
         printf("\n");
     }
 }
+
 void DFS(MGraph G,int v){
     printf("%3c",G.vexs[v]);
     visited[v]=1;
@@ -92,6 +96,7 @@ void DFS(MGraph G,int v){
             DFS(G,i);
     }
 }
+
 void DFSGraph(MGraph G){
     for(int i=0;i<G.vexnum;i++)
         visited[i]=0;
@@ -99,6 +104,7 @@ void DFSGraph(MGraph G){
         if(!visited[i])
             DFS(G,i);
 }
+
 void BFSGraph(MGraph G){
     SqQueue vexqueue;
     InitQueue(&vexqueue);

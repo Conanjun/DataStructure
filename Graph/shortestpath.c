@@ -2,23 +2,33 @@
 #include "../Stack/stack.c"
 
 void PrintPathAndDistanceDijkstra(MGraph G,int v0,int path[],int dist[]){
-    SqStack sq;
-    InitStack(&sq);
+    SqStack ss;
+    InitStack(&ss);
     for(int i=0;i<G.vexnum;i++){
         printf("%c 到 %c 的最短路径为: ",G.vexs[v0],G.vexs[i]);
         //路径回溯
         int temp=i;
         while(temp!=v0){
-            Push(&sq,temp);
-            temp=path[temp];
+            if(temp!=-1){
+                Push(&ss,temp);
+                temp=path[temp];
+            }
+            else{
+                printf("不存在路径\n");
+                //恢复栈
+                InitStack(&ss);
+                goto nopath;
+            }
         }
+        //判断是否存在路径再push
         printf("%c",G.vexs[v0]);
-        while(!StackEmpty(sq)){
+        while(!StackEmpty(ss)){
             int temp;
-            Pop(&sq,&temp);
+            Pop(&ss,&temp);
             printf("->%c",G.vexs[temp]);
         }
         printf("    最短距离为%d\n",dist[i]);
+        nopath:;
     }
 }
 
@@ -72,7 +82,6 @@ void Dijkstra(MGraph G,int v0){
     PrintPathAndDistanceDijkstra(G,v0,path,dist);
 }
 
-
 void PrintPathAndDistanceFloyd(MGraph G,int** path,int** dist){
     SqStack ss;
     InitStack(&ss);
@@ -82,8 +91,18 @@ void PrintPathAndDistanceFloyd(MGraph G,int** path,int** dist){
             //路径回溯
             int temp=j;
             while(temp!=i){
-                Push(&ss,temp);
-                temp=path[i][temp];
+                //判断是否存在路径再push
+                if(temp!=-1){
+                    Push(&ss,temp);
+                    temp=path[i][temp];
+                }
+                else{
+                    printf("不存在路径\n");
+                    //恢复栈
+                    InitStack(&ss);
+                    goto nopath;
+                    //break 2;
+                }
             }
             printf("%c",G.vexs[i]);
             while(!StackEmpty(ss)){
@@ -92,6 +111,7 @@ void PrintPathAndDistanceFloyd(MGraph G,int** path,int** dist){
                 printf("->%c",G.vexs[temp]);
             }
             printf("    最短距离为%d\n",dist[i][j]);
+            nopath:;
         }
     }
 }
@@ -132,18 +152,18 @@ void Floyd(MGraph G){
         }
     }
     //打印path dist
-    for(int i=0;i<G.vexnum;i++){
-        for(int j=0;j<G.vexnum;j++){
-            printf(j?" %d":"%d",path[i][j]);
-        }
-        printf("\n");
-    }
-    for(int i=0;i<G.vexnum;i++){
-        for(int j=0;j<G.vexnum;j++){
-            printf(j?" %d":"%d",dist[i][j]);
-        }
-        printf("\n");
-    }
+    //for(int i=0;i<G.vexnum;i++){
+    //   for(int j=0;j<G.vexnum;j++){
+    //        printf(j?" %d":"%d",path[i][j]);
+    //    }
+    //    printf("\n");
+    //}
+    //for(int i=0;i<G.vexnum;i++){
+    //    for(int j=0;j<G.vexnum;j++){
+    //        printf(j?" %d":"%d",dist[i][j]);
+    //    }
+    //    printf("\n");
+    //}
     PrintPathAndDistanceFloyd(G,path,dist);
     //释放内存
     for(int i=0;i<G.vexnum;i++){
